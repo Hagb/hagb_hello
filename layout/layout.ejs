@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+		<% var title="";
+			if(page.title) title=page.title;
+			else if(is_home()) title=__("Home");
+			else if(is_archive()) title=__("Archives");
+		%>
+		<title><%= title+(title && "-")+config.title %></title>
+	</head>
+	<body>
+		<header class="header">
+			<div>
+				<span class="header_site_title"><%= config.title %></span><br />
+				<span class="header_site_subtitle"><%= config.subtitle %></span>
+			</div>
+			<nav class="header_menu">
+				<% for (name in theme.menu) { %>
+					<a href="<%= theme.menu[name] %>" class="header_menu_link"><%= __(name) %></a> 
+				<% } %>
+			</nav>
+			<nav class="header_links">
+				<% for (name in config.links) { %>
+					<a href="<%= theme.links[name] %>" class="header_links_link"><%= name %></a>
+				<% } %>
+			</nav>
+		</header>
+
+		<%- body %>
+
+		<footer class="footer"><!-- footer -->
+			<p class="footer_description"><%= config.description %></p>
+			<span class="footer_site"><%= config.title %>: <a href="<%= config.url %>"><%= config.url %></a> <%= config.keywords %></span><br />
+			<%
+				date_min=""
+				date_max=""
+			%><!-- Get min and max date (TODO) -->
+			<span class="footer_copyright">Copyright &copy; <%= date_min %><%= ( date_max && date_min ) && "-" %><%= date_max %><%= config.author %><%- config.email && "&lt;<a href=\"mailto" %><%= config.email %><%- config.email && "\">" %><%= config.email %><%- config.email && "</a>&gt;" %></span>
+		</footer>
+	</body>
+</html>
