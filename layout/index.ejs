@@ -1,11 +1,12 @@
 <% prefix= is_archive() ? "archive" : "index" %>
 <h1><%= __(is_archive() ? "Archives" : "Home") %></h1>
 <div class="<% prefix %>">
-	<% for (post of page.posts.toArray() ) if ( is_archive() == post["archive"] ) { %>
+	<% for (post of page.posts.toArray() ) if ( is_archive() != !post.archive ) { %>
 		<div class="<%= prefix %>_post">
-			<a href="<%= post["path"] %>"><%= post["title"] %></a>
-			<p class="<%= prefix %>_post_excerpt"><%= post["excerpt"] %></p>
-			<div class="<%= prefix %>_post_time"><%= post["date"].format() %></div>
+			<a href="<%= post.path %>"><%= post.title %></a>
+			<p class="<%= prefix %>_post_excerpt"><%= post.excerpt %></p>
+			<div class="<%= prefix %>_post_time"><%= post.date.format() %></div>
+			<div class="<%= prefix %>_post_update"><span class="<%= prefix %>_post_updated"><%= __("Updated") %></span> <span class="<%= prefix %>_post_update_time"><%= post.updated.format() %></span></div>
 		</div>
 	<% } %>
 </div>
