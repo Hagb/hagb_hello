@@ -5,7 +5,7 @@
 		<div class="<%= prefix %>_post">
 			<a href="<%= post.path %>"><%= post.title %></a>
 			<p class="<%= prefix %>_post_excerpt"><%= post.excerpt %></p>
-			<div class="<%= prefix %>_post_time"><%= post.date.format() %></div>
+			<div class="<%= prefix %>_post_time"><%= post.date.format("YYYY")!="1970" ? post.date.format() : "" %></div>
 			<div class="<%= prefix %>_post_update"><span class="<%= prefix %>_post_updated"><%= __("Updated") %></span> <span class="<%= prefix %>_post_update_time"><%= post.updated.format() %></span></div>
 		</div>
 	<% } %>

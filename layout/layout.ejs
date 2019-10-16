@@ -33,10 +33,24 @@
 			<p class="footer_description"><%= config.description %></p>
 			<span class="footer_site"><%= config.title %>: <a href="<%= config.url %>"><%= config.url %></a> <%= config.keywords %></span><br />
 			<%
-				date_min=""
-				date_max=""
+				date_min="9999"
+				date_max="1970"
+				date_text=""
+				for (post of site.posts.toArray() ){
+					if ((date_text=post.date.format("YYYY")) != "1970") {
+						if(date_text>date_max)date_max=date_text;
+						if(date_text<date_min)date_min=date_text;
+					}
+					if ((date_text=post.updated.format("YYYY")) != "1970") {
+						if(date_text>date_max)date_max=date_text;
+						if(date_text<date_min)date_min=date_text;
+					}
+				}
+				if(date_min=="9999") date_min="";
+				if(date_max=="1970") date_max="";
+						     //date_min="2009";date_max="2019";
 			%><!-- Get min and max date (TODO) -->
-			<span class="footer_copyright">Copyright &copy; <%= date_min %><%= ( date_max && date_min ) && "-" %><%= date_max %><%= config.author %><%- config.email && "&lt;<a href=\"mailto" %><%= config.email %><%- config.email && "\">" %><%= config.email %><%- config.email && "</a>&gt;" %></span>
+			<span class="footer_copyright">Copyright &copy; <%= date_min!=date_max ? date_min : ""%><%= ( date_max && date_min && date_min!=date_max) ? "-" : "" %><%= date_max %> <%= config.author %><%- config.email && "&lt;<a href=\"mailto" %><%= config.email %><%- config.email && "\">" %><%= config.email %><%- config.email && "</a>&gt;" %></span>
 		</footer>
 	</body>
 </html>
